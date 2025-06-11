@@ -261,7 +261,7 @@
   <!-- Tela inicial de senha -->
   <div id="login-screen">
     <h1>Digite a senha para entrar</h1>
-    <input type="text" id="passwordInput" placeholder="Senha aqui..." value="eu te amo, rosa" />
+    <input type="text" id="passwordInput" placeholder="Senha aqui..." value="08/06" />
     <button id="enterBtn">Entrar</button>
     <div id="error-msg"></div>
   </div>
@@ -324,7 +324,7 @@
 
     enterBtn.addEventListener("click", () => {
       const senha = passwordInput.value.trim().toLowerCase();
-      if (senha === "eu te amo, rosa") {
+      if (senha === "08/06") {
         loginScreen.classList.add("hide");
         setTimeout(() => {
           loginScreen.style.display = "none";
