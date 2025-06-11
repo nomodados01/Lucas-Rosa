@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nosso Amor</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #001024, #000819);
+      color: white;
+      position: relative;
+      min-height: 100vh;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: transparent url('https://raw.githubusercontent.com/joshwcomeau/starfield/master/starfield.png') repeat;
+      background-size: contain;
+      z-index: -2;
+      animation: moveStars 200s linear infinite;
+    }
+
+    @keyframes moveStars {
+      from {background-position: 0 0;}
+      to {background-position: -10000px 5000px;}
+    }
+
+    .heart {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 4s linear forwards;
+      opacity: 0.7;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background: red;
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-300px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    /* TELA INICIAL DE LOGIN */
+    #login-screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  color: #ff69b4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: opacity 0.8s ease;
+}
+
+
+    #login-screen.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #login-screen input[type="text"] {
+      padding: 10px 15px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: 2px solid #ff69b4;
+      margin-bottom: 15px;
+      outline: none;
+      width: 280px;
+      text-align: center;
+      color: #090a0f;
+      font-weight: bold;
+      background: white;
+    }
+
+    #login-screen button {
+      background: #ff69b4;
+      border: none;
+      padding: 10px 25px;
+      font-size: 18px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    #login-screen button:hover {
+      background: #ff85c1;
+    }
+
+    #error-msg {
+      color: #ff4c6a;
+      margin-top: 10px;
+      font-weight: bold;
+      height: 20px;
+    }
+
+    .container {
+      text-align: center;
+      padding: 30px 20px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .container.visible {
+      opacity: 1;
+    }
+
+    .carousel-container {
+      width: 300px;
+      height: 300px;
+      margin: 0 auto 30px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
+
+    .carousel-images {
+      display: flex;
+      animation: slide 16s infinite;
+    }
+
+    .carousel-images img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    @keyframes slide {
+  0%    { transform: translateX(0); }
+  10%   { transform: translateX(0); }
+  12.5% { transform: translateX(-300px); }
+  22.5% { transform: translateX(-300px); }
+  25%   { transform: translateX(-600px); }
+  35%   { transform: translateX(-600px); }
+  37.5% { transform: translateX(-900px); }
+  47.5% { transform: translateX(-900px); }
+  50%   { transform: translateX(-1200px); }
+  60%   { transform: translateX(-1200px); }
+  62.5% { transform: translateX(-1500px); }
+  72.5% { transform: translateX(-1500px); }
+  75%   { transform: translateX(-1800px); }
+  85%   { transform: translateX(-1800px); }
+  87.5% { transform: translateX(-2100px); }
+  97.5% { transform: translateX(-2100px); }
+  100%  { transform: translateX(0); }
+}
+
+
+    h2, h3, h4, p {
+      margin: 15px 0;
+    }
+
+    #contador {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    hr {
+      border: 1px solid rgba(255,255,255,0.2);
+      width: 80%;
+      margin: 30px auto;
+    }
+
+    .texto-amor {
+      font-size: 17px;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    .music-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #ff69b4;
+      padding: 15px 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .music-player button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      animation: pulse 1.5s infinite;
+      transition: 0.3s;
+    }
+
+    .music-player button:hover {
+      background: #ff85c1;
+      transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
+      70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 105, 180, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tela inicial de senha -->
+  <div id="login-screen">
+    <h1>Digite a senha para entrar</h1>
+    <input type="text" id="passwordInput" placeholder="Senha aqui..." value="eu te amo, rosa" />
+    <button id="enterBtn">Entrar</button>
+    <div id="error-msg"></div>
+  </div>
+
+  <div class="stars"></div>
+
+  <div class="container" id="mainContent" >
+    <!-- Carrossel de fotos -->
+    <div class="carousel-container">
+      <div class="carousel-images">
+  <img src="Imagem do WhatsApp de 2025-06-11 à(s) 12.54.32_43493ab5.jpg" alt="Foto 1">
+  <img src="Imagem do WhatsApp de 2025-06-11 à(s) 12.54.33_d05d37d7.jpg" alt="Foto 2">
+  <img src="Imagem do WhatsApp de 2025-06-11 à(s) 12.55.02_df3c5856.jpg" alt="Foto 3">
+  <img src="Imagem do WhatsApp de 2025-06-11 à(s) 12.55.21_53fad176.jpg" alt="Foto 4">
+  <img src="Imagem do WhatsApp de 2025-06-11 à(s) 12.55.22_18ec9428.jpg" alt="Foto 5">
+  <img src="Imagem do WhatsApp de 2025-06-11 à(s) 12.55.40_e3cf6ba9.jpg" alt="Foto 6">
+  <img src="Imagem do WhatsApp de 2025-06-11 à(s) 12.54.32_43493ab5.jpg" alt="Foto 7">
+  <img src="Imagem do WhatsApp de 2025-06-11 à(s) 12.55.02_df3c5856.jpg" alt="Foto 8">
+</div>
+
+    </div>
+
+    <!-- Texto amoroso -->
+    <h2>❤️ Eu te amo há:</h2>
+
+    <!-- Contador -->
+    <div id="contador">Carregando...</div>
+
+    <hr>
+
+    <!-- Texto bonito sobre o relacionamento -->
+    <div class="texto-amor">
+      <p>
+        Nosso amor começou de forma simples, mas foi crescendo com cada olhar, cada riso e cada momento que dividimos.
+        Desde o primeiro dia, você tem sido meu apoio, minha paz e minha inspiração. 
+      </p>
+      <p>
+        Já vivemos tantas coisas juntos, e sei que ainda temos um mundo inteiro para explorar lado a lado.
+        Cada segundo com você é precioso, e sou eternamente grato por te ter na minha vida.
+      </p>
+      <p>
+        Obrigado por ser quem você é. Que nosso amor continue a crescer como as estrelas nesse céu infinito. 🌟❤️
+      </p>
+    </div>
+  </div>
+
+  <!-- Música flutuante -->
+  <div class="music-player" style="display:none;" id="musicPlayer">
+    <button id="playBtn">▶️ Tocar "Lisboa"</button>
+    <audio id="audio" src="lisboa.mp3"></audio>
+  </div>
+
+  <script>
+    const loginScreen = document.getElementById("login-screen");
+    const mainContent = document.getElementById("mainContent");
+    const musicPlayer = document.getElementById("musicPlayer");
+    const passwordInput = document.getElementById("passwordInput");
+    const enterBtn = document.getElementById("enterBtn");
+    const errorMsg = document.getElementById("error-msg");
+
+    enterBtn.addEventListener("click", () => {
+      const senha = passwordInput.value.trim().toLowerCase();
+      if (senha === "eu te amo, rosa") {
+        loginScreen.classList.add("hide");
+        setTimeout(() => {
+          loginScreen.style.display = "none";
+          mainContent.classList.add("visible");
+          musicPlayer.style.display = "flex";
+        }, 800);
+      } else {
+        errorMsg.textContent = "Senha incorreta! Tente novamente.";
+      }
+    });
+
+    passwordInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        enterBtn.click();
+      }
+    });
+
+    // Atualiza contador anos, meses, dias, horas, minutos e segundos desde 24/11/2021 20:00
+    function atualizarContador() {
+      const inicio = new Date(2025, 4, 15, 0, 0, 0); // mês 10 = novembro
+      const agora = new Date();
+
+      if (agora < inicio) {
+        document.getElementById("contador").textContent = "Ainda não começamos...";
+        return;
+      }
+
+      let anos = agora.getFullYear() - inicio.getFullYear();
+      let meses = agora.getMonth() - inicio.getMonth();
+      let dias = agora.getDate() - inicio.getDate();
+      let horas = agora.getHours() - inicio.getHours();
+      let minutos = agora.getMinutes() - inicio.getMinutes();
+      let segundos = agora.getSeconds() - inicio.getSeconds();
+
+      if (segundos < 0) {
+        segundos += 60;
+        minutos--;
+      }
+      if (minutos < 0) {
+        minutos += 60;
+        horas--;
+      }
+      if (horas < 0) {
+        horas += 24;
+        dias--;
+      }
+      if (dias < 0) {
+        const ultimoDiaMesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+        dias += ultimoDiaMesAnterior;
+        meses--;
+      }
+      if (meses < 0) {
+        meses += 12;
+        anos--;
+      }
+
+      const partes = [];
+      if (anos > 0) partes.push(anos + (anos === 1 ? " ano" : " anos"));
+      if (meses > 0) partes.push(meses + (meses === 1 ? " mês" : " meses"));
+      if (dias > 0) partes.push(dias + (dias === 1 ? " dia" : " dias"));
+      if (horas > 0) partes.push(horas + (horas === 1 ? " hora" : " horas"));
+      if (minutos > 0) partes.push(minutos + (minutos === 1 ? " minuto" : " minutos"));
+      partes.push(segundos + (segundos === 1 ? " segundo" : " segundos"));
+
+      document.getElementById("contador").textContent = partes.join(", ");
+    }
+
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
+
+    // Música
+    const audio = document.getElementById("audio");
+    const playBtn = document.getElementById("playBtn");
+
+    playBtn.addEventListener("click", () => {
+      if(audio.paused){
+        audio.play();
+        playBtn.textContent = "⏸️ Pausar \"Lisboa\"";
+      } else {
+        audio.pause();
+        playBtn.textContent = "▶️ Tocar \"Lisboa\"";
+      }
+    });
+
+    // Efeito de corações flutuantes (5 a cada 2s)
+    function criarCoracao() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.top = window.innerHeight + 20 + 'px';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.style.top = (window.innerHeight - 300) + 'px';
+        heart.style.opacity = '0';
+      }, 50);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+
+    setInterval(() => {
+      for(let i=0; i<5; i++) {
+        criarCoracao();
+      }
+    }, 2000);
+  </script>
+</body>
+</html>
